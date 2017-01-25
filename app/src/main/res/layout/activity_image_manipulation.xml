@@ -105,6 +105,7 @@
                 android:textAllCaps="false"
                 android:textColor="@color/white"
                 android:textSize="@dimen/text_large"
+                fontPath="fonts/CronosProRegular.otf"
                 />
 
             <android.support.v7.widget.AppCompatButton
@@ -117,6 +118,7 @@
                 android:textAllCaps="false"
                 android:textColor="@color/white"
                 android:textSize="@dimen/text_large"
+                fontPath="fonts/CronosProRegular.otf"
                 />
 
         </LinearLayout>

@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.test.image_upload.BaseActivity;
 import com.test.image_upload.R;
 import com.theartofdev.edmodo.cropper.CropImageView;
 
@@ -22,7 +23,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 
 @EActivity(R.layout.activity_image_cropping)
-public class ImageCroppingActivity extends AppCompatActivity {
+public class ImageCroppingActivity extends BaseActivity {
 
     public final static String CROPPED_FILE_PATH = "croppedFilePath";
 

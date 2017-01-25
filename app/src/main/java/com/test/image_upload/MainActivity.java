@@ -4,16 +4,19 @@ import android.Manifest;
 import android.content.pm.PackageManager;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 
 import com.test.image_upload.activity.AlbumCreationActivity_;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EActivity;
+import org.androidannotations.annotations.ViewById;
 
 @EActivity(R.layout.activity_main)
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends BaseActivity {
+
+    @ViewById(R.id.toolbar) Toolbar toolbar;
 
     private static final int SMALL_ALBUM_NUMBER_OF_PICS = 4;
     private static final int MEDIUM_ALBUM_NUMBER_OF_PICS = 6;
@@ -21,6 +24,7 @@ public class MainActivity extends AppCompatActivity {
 
     @AfterViews
     public void initialize() {
+        setupToolbar("Prueba Creación de Álbum");
         checkForPermissions();
     }
 

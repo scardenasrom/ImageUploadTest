@@ -16,41 +16,49 @@
         android:icon="@mipmap/ic_launcher"
         android:label="Prueba Creación de Álbum"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity_"
-            android:screenOrientation="portrait">
+        android:theme="@style/AppTheme"
+        >
+
+        <activity
+            android:name=".MainActivity_"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
+            >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity
             android:name=".activity.AlbumCreationActivity_"
             android:label="@string/title_activity_album_creation"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:screenOrientation="portrait"
             android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
             />
 
         <activity
             android:name=".activity.CoverEditorActivity_"
             android:label="Crea tu Portada"
-            android:screenOrientation="portrait"
             android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
             />
 
         <activity
             android:name=".activity.ImageManipulationActivity_"
             android:label="Prepara la fotografía"
-            android:screenOrientation="portrait"
             android:launchMode="singleTask"
+            android:screenOrientation="portrait"
             />
 
-        <activity android:name=".activity.ImageCroppingActivity_"
+        <activity
+            android:name=".activity.ImageCroppingActivity_"
             android:label="Prepara la fotografía"
-            android:screenOrientation="portrait"
             android:launchMode="singleTask"
+            android:screenOrientation="portrait"
             />
 
         <activity
@@ -64,6 +72,7 @@
             android:exported="true"
             android:label="Album Sender Background Service"
             />
+
     </application>
 
 </manifest>

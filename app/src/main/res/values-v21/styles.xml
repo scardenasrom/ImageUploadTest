@@ -9,8 +9,8 @@
 
     <style name="DialogTheme" parent="Base.V21.ThemeOverlay.AppCompat.Dialog">
         <item name="colorControlNormal">@color/primary_dark</item>
-        <item name="colorControlActivated">@color/white</item>
-        <item name="colorControlHighlight">@color/white</item>
+        <item name="colorControlActivated">@color/primary_dark</item>
+        <item name="colorControlHighlight">@color/primary_dark</item>
     </style>
 
 </resources>

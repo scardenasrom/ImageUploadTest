@@ -16,4 +16,7 @@
     <dimen name="text_xlarge">24sp</dimen>
 
     <!-- Specific Measures -->
+    <dimen name="album_picture_image_width">100dp</dimen>
+    <dimen name="album_picture_row_height">200dp</dimen>
+    <dimen name="custom_dialog_width">300dp</dimen>
 </resources>

@@ -2,14 +2,15 @@ package com.test.image_upload.activity;
 
 import android.app.Dialog;
 import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
 import android.util.TypedValue;
-import android.view.GestureDetector;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.RelativeLayout;
 
+import com.test.image_upload.BaseActivity;
 import com.test.image_upload.R;
 import com.test.image_upload.dialog.CoverTitleDialog;
+import com.test.image_upload.model.CoverTitle;
 import com.test.image_upload.util.OnDragTouchListener;
 import com.test.image_upload.view.CoverTitleTextView;
 
@@ -18,63 +19,74 @@ import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.ViewById;
 
+import uk.co.chrisjenx.calligraphy.CalligraphyUtils;
+
 @EActivity(R.layout.activity_cover_editor)
-public class CoverEditorActivity extends AppCompatActivity {
+public class CoverEditorActivity extends BaseActivity {
 
     private static final String TITLE_TAG = "title";
 
-    private String oldTitle;
-    private float oldTitleX;
-    private float oldTitleY;
+    private CoverTitle currentCoverTitle = new CoverTitle();
 
     @ViewById(R.id.cover_editor_canvas) RelativeLayout coverCanvas;
 
     @AfterViews
     public void initialize() {
-
+        setupToolbar("Crea tu portada");
+        if (getSupportActionBar() != null)
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
-    @Click(R.id.cover_editor_color_button)
-    public void onColorButtonClick() {
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                handleCoverEditExit();
+                break;
+        }
+        return super.onOptionsItemSelected(item);
+    }
 
+    private void handleCoverEditExit() {
+        finish();
     }
 
     @Click(R.id.cover_editor_title_button)
     public void onTitleButtonClick() {
-        String currentTitle = "";
-        CoverTitleTextView previousTitle = (CoverTitleTextView)coverCanvas.findViewWithTag(TITLE_TAG);
-        if (previousTitle != null) {
-            currentTitle = previousTitle.getText().toString();
-        }
-        showCoverTitleDialog(currentTitle);
+        showCoverTitleDialog();
     }
 
-    private void showCoverTitleDialog(String currentTitle) {
-        CoverTitleDialog coverTitleDialog = new CoverTitleDialog(CoverEditorActivity.this, R.style.DialogTheme, currentTitle, new CoverTitleDialog.OnCoverTitleClickListener() {
+    private void showCoverTitleDialog() {
+        CoverTitleDialog coverTitleDialog = new CoverTitleDialog(CoverEditorActivity.this, R.style.DialogTheme, currentCoverTitle, new CoverTitleDialog.OnCoverTitleClickListener() {
             @Override
             public void onCancel(Dialog dialog) {
                 dialog.cancel();
             }
 
             @Override
-            public void onAccept(Dialog dialog, String title) {
+            public void onAccept(Dialog dialog, CoverTitle coverTitle) {
                 dialog.dismiss();
-                writeTitle(title);
+                currentCoverTitle.setTitle(coverTitle.getTitle());
+                currentCoverTitle.setColor(coverTitle.getColor());
+                currentCoverTitle.setFont(coverTitle.getFont());
+                writeTitle();
             }
         });
         coverTitleDialog.show();
     }
 
-    private void writeTitle(String title) {
+    private void writeTitle() {
         CoverTitleTextView previousTitle = (CoverTitleTextView)coverCanvas.findViewWithTag(TITLE_TAG);
         if (previousTitle != null) {
-            previousTitle.setText(title);
+            previousTitle.setText(currentCoverTitle.getTitle());
+            previousTitle.setTextColor(currentCoverTitle.getColor());
             previousTitle.refreshTouchListener();
+            // TODO Load the selected font
         } else {
-            CoverTitleTextView newTitle = new CoverTitleTextView(CoverEditorActivity.this, coverCanvas, new OnDragTouchListener.OnDraggableViewClickListener() {
+            CoverTitleTextView newCoverTitle = new CoverTitleTextView(CoverEditorActivity.this, coverCanvas, new OnDragTouchListener.OnDraggableViewClickListener() {
                 @Override
                 public void onClick(View v) {
-                    showCoverTitleDialog(((CoverTitleTextView)v).getText().toString());
+                    showCoverTitleDialog();
                 }
 
                 @Override
@@ -82,46 +94,49 @@ public class CoverEditorActivity extends AppCompatActivity {
                     handleTitleRemoval((CoverTitleTextView)v);
                 }
             });
+            newCoverTitle.setTag(TITLE_TAG);
             int paddingInPixels = getResources().getDimensionPixelSize(R.dimen.spacing_small);
-            newTitle.setPadding(paddingInPixels, paddingInPixels, paddingInPixels, paddingInPixels);
-            newTitle.setText(title);
-            newTitle.setTextSize(TypedValue.COMPLEX_UNIT_PX, getResources().getDimension(R.dimen.text_xlarge));
-            newTitle.setTag(TITLE_TAG);
-            coverCanvas.addView(newTitle);
-        }
-    }
-
-    @Click(R.id.cover_editor_image_button)
-    public void onCoverImageButtonClick() {
-        CoverTitleTextView coverTitleTextView = (CoverTitleTextView)coverCanvas.findViewWithTag(TITLE_TAG);
-        if (coverTitleTextView != null) {
-            Snackbar.make(coverCanvas, "Center X: " + coverTitleTextView.getCenterX() + ", Center Y: " + coverTitleTextView.getCenterY(), Snackbar.LENGTH_INDEFINITE).show();
+            newCoverTitle.setPadding(paddingInPixels, paddingInPixels, paddingInPixels, paddingInPixels);
+            newCoverTitle.setText(currentCoverTitle.getTitle());
+            newCoverTitle.setTextSize(TypedValue.COMPLEX_UNIT_PX, getResources().getDimension(R.dimen.text_xlarge));
+            //TODO Load the selected font
+//            String fontName = currentCoverTitle.getFont();
+            String fontName = "CronosProRegular";
+            CalligraphyUtils.applyFontToTextView(CoverEditorActivity.this, newCoverTitle, "fonts/" + fontName + ".otf");
+            newCoverTitle.setTextColor(currentCoverTitle.getColor());
+            coverCanvas.addView(newCoverTitle);
         }
     }
 
     private void handleTitleRemoval(CoverTitleTextView coverTitleTextView) {
+        currentCoverTitle.setxCanvasCoordinate(coverTitleTextView.getX());
+        currentCoverTitle.setyCanvasCoordinate(coverTitleTextView.getY());
+
         coverCanvas.removeView(coverTitleTextView);
 
-        oldTitle = coverTitleTextView.getText().toString();
-        oldTitleX = coverTitleTextView.getX();
-        oldTitleY = coverTitleTextView.getY();
-
-        Snackbar confirmTitleRemoval = Snackbar.make(coverCanvas, "Título eliminado", Snackbar.LENGTH_LONG);
-        confirmTitleRemoval.setAction("Deshacer", new View.OnClickListener() {
+        Snackbar confirmTitleRemovalSnackbar = Snackbar.make(coverCanvas, "Título eliminado", Snackbar.LENGTH_LONG);
+        confirmTitleRemovalSnackbar.setAction("Deshacer", new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 restoreOldTitle();
             }
         });
-        confirmTitleRemoval.setActionTextColor(getResources().getColor(R.color.white));
-        confirmTitleRemoval.show();
+        confirmTitleRemovalSnackbar.addCallback(new Snackbar.Callback() {
+            @Override
+            public void onDismissed(Snackbar transientBottomBar, int event) {
+                if (Snackbar.Callback.DISMISS_EVENT_ACTION != event)
+                    currentCoverTitle = new CoverTitle();
+            }
+        });
+        confirmTitleRemovalSnackbar.setActionTextColor(getResources().getColor(R.color.white));
+        confirmTitleRemovalSnackbar.show();
     }
 
     private void restoreOldTitle() {
-        CoverTitleTextView newTitle = new CoverTitleTextView(CoverEditorActivity.this, coverCanvas, new OnDragTouchListener.OnDraggableViewClickListener() {
+        CoverTitleTextView coverTitleTextView = new CoverTitleTextView(CoverEditorActivity.this, coverCanvas, new OnDragTouchListener.OnDraggableViewClickListener() {
             @Override
             public void onClick(View v) {
-                showCoverTitleDialog(((CoverTitleTextView)v).getText().toString());
+                showCoverTitleDialog();
             }
 
             @Override
@@ -129,14 +144,22 @@ public class CoverEditorActivity extends AppCompatActivity {
                 handleTitleRemoval((CoverTitleTextView)v);
             }
         });
+        coverTitleTextView.setTag(TITLE_TAG);
         int paddingInPixels = getResources().getDimensionPixelSize(R.dimen.spacing_small);
-        newTitle.setPadding(paddingInPixels, paddingInPixels, paddingInPixels, paddingInPixels);
-        newTitle.setText(oldTitle);
-        newTitle.setTextSize(TypedValue.COMPLEX_UNIT_PX, getResources().getDimension(R.dimen.text_xlarge));
-        newTitle.setTag(TITLE_TAG);
-        newTitle.setX(oldTitleX);
-        newTitle.setY(oldTitleY);
-        coverCanvas.addView(newTitle);
+        coverTitleTextView.setPadding(paddingInPixels, paddingInPixels, paddingInPixels, paddingInPixels);
+        coverTitleTextView.setText(currentCoverTitle.getTitle());
+        coverTitleTextView.setTextSize(TypedValue.COMPLEX_UNIT_PX, getResources().getDimension(R.dimen.text_xlarge));
+        //TODO Load the font
+//        String fontName = currentCoverTitle.getFont();
+        String fontName = "CronosProRegular";
+        CalligraphyUtils.applyFontToTextView(CoverEditorActivity.this, coverTitleTextView, "fonts/" + fontName + ".otf");
+        coverTitleTextView.setTextColor(currentCoverTitle.getColor());
+        // Canvas position
+        if (currentCoverTitle.getxCanvasCoordinate() != null && currentCoverTitle.getyCanvasCoordinate() != null) {
+            coverTitleTextView.setX(currentCoverTitle.getxCanvasCoordinate());
+            coverTitleTextView.setY(currentCoverTitle.getyCanvasCoordinate());
+        }
+        coverCanvas.addView(coverTitleTextView);
     }
 
 }

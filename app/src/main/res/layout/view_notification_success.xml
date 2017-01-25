@@ -37,6 +37,7 @@
             android:textColor="@color/white"
             android:textSize="14sp"
             android:textStyle="bold"
+            fontPath="fonts/CronosProRegular.otf"
             />
 
         <ProgressBar
@@ -58,6 +59,7 @@
             android:text="Subiendo fotografías 3/13"
             android:textColor="@color/white"
             android:textSize="12sp"
+            fontPath="fonts/CronosProRegular.otf"
             />
 
     </LinearLayout>

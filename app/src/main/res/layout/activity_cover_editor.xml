@@ -4,85 +4,98 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
     tools:context="com.test.image_upload.activity.CoverEditorActivity"
     >
 
-    <RelativeLayout
-        android:orientation="vertical"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:orientation="vertical"
         >
 
-        <android.support.v7.widget.AppCompatButton
-            android:id="@+id/cover_editor_image_button"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/primary_button"
-            android:layout_above="@+id/cover_editor_canvas"
-            android:layout_marginLeft="@dimen/spacing_xxlarge"
-            android:layout_marginRight="@dimen/spacing_xxlarge"
-            android:text="Imagen de Portada"
-            android:textAllCaps="false"
-            android:textColor="@color/white"
-            android:textSize="@dimen/text_large"
-            android:stateListAnimator="@null"
-            tools:targetApi="lollipop"
-            />
+        <include layout="@layout/toolbar" />
 
         <RelativeLayout
-            android:id="@+id/cover_editor_canvas"
             android:layout_width="match_parent"
-            android:layout_height="350dp"
-            android:layout_centerInParent="true"
-            android:layout_marginLeft="@dimen/spacing_xxlarge"
-            android:layout_marginRight="@dimen/spacing_xxlarge"
-            android:background="@drawable/canvas_box"
+            android:layout_height="match_parent"
             >
 
+            <android.support.v7.widget.AppCompatButton
+                android:id="@+id/cover_editor_image_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/primary_button"
+                android:layout_above="@+id/cover_editor_canvas"
+                android:layout_marginLeft="@dimen/spacing_xxlarge"
+                android:layout_marginRight="@dimen/spacing_xxlarge"
+                android:text="Imagen de Portada"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:textSize="@dimen/text_large"
+                android:stateListAnimator="@null"
+                tools:targetApi="lollipop"
+                fontPath="fonts/CronosProRegular.otf"
+                />
 
+            <RelativeLayout
+                android:id="@+id/cover_editor_canvas"
+                android:layout_width="match_parent"
+                android:layout_height="350dp"
+                android:layout_centerInParent="true"
+                android:layout_marginLeft="@dimen/spacing_xxlarge"
+                android:layout_marginRight="@dimen/spacing_xxlarge"
+                android:background="@drawable/canvas_box"
+                >
+
+
+
+            </RelativeLayout>
+
+            <LinearLayout
+                android:id="@+id/cover_editor_bottom_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/cover_editor_canvas"
+                android:layout_marginLeft="@dimen/spacing_xxlarge"
+                android:layout_marginRight="@dimen/spacing_xxlarge"
+                android:orientation="horizontal"
+                >
+
+                <android.support.v7.widget.AppCompatButton
+                    android:id="@+id/cover_editor_color_button"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/primary_button"
+                    android:stateListAnimator="@null"
+                    android:text="Color de Fondo"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/text_large"
+                    tools:targetApi="lollipop"
+                    fontPath="fonts/CronosProRegular.otf"
+                    />
+
+                <android.support.v7.widget.AppCompatButton
+                    android:id="@+id/cover_editor_title_button"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/primary_button"
+                    android:stateListAnimator="@null"
+                    android:text="Título"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/text_large"
+                    tools:targetApi="lollipop"
+                    fontPath="fonts/CronosProRegular.otf"
+                    />
+
+            </LinearLayout>
 
         </RelativeLayout>
 
-        <LinearLayout
-            android:id="@+id/cover_editor_bottom_layout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/cover_editor_canvas"
-            android:layout_marginLeft="@dimen/spacing_xxlarge"
-            android:layout_marginRight="@dimen/spacing_xxlarge"
-            android:orientation="horizontal"
-            >
-
-            <android.support.v7.widget.AppCompatButton
-                android:id="@+id/cover_editor_color_button"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:background="@drawable/primary_button"
-                android:stateListAnimator="@null"
-                android:text="Color de Fondo"
-                android:textAllCaps="false"
-                android:textColor="@color/white"
-                android:textSize="@dimen/text_large"
-                tools:targetApi="lollipop"
-                />
-
-            <android.support.v7.widget.AppCompatButton
-                android:id="@+id/cover_editor_title_button"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:background="@drawable/primary_button"
-                android:stateListAnimator="@null"
-                android:text="Título"
-                android:textAllCaps="false"
-                android:textColor="@color/white"
-                android:textSize="@dimen/text_large"
-                tools:targetApi="lollipop"
-                />
-
-        </LinearLayout>
-
-    </RelativeLayout>
+    </LinearLayout>
 
 </android.support.design.widget.CoordinatorLayout>

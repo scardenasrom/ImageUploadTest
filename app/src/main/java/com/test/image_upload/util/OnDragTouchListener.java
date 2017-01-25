@@ -115,7 +115,6 @@ public class OnDragTouchListener implements View.OnTouchListener {
     @Override
     public boolean onTouch(View v, MotionEvent event) {
         if (isDragging) {
-            handler.removeCallbacks(mLongPressed);
             float[] bounds = new float[4];
             // LEFT
             bounds[0] = event.getRawX() + dX;
@@ -147,10 +146,18 @@ public class OnDragTouchListener implements View.OnTouchListener {
                     endY = event.getRawY();
                     endTime = event.getEventTime();
                     handleMotionEventEnd();
+                    handler.removeCallbacks(mLongPressed);
                     break;
                 case MotionEvent.ACTION_MOVE:
                     mView.animate().x(bounds[0]).setDuration(0).start();
                     mView.animate().y(bounds[1]).setDuration(0).start();
+                    endX = event.getRawX();
+                    endY = event.getRawY();
+                    float differenceX = Math.abs(startX - endX);
+                    float differenceY = Math.abs(startY - endY);
+                    if (differenceX > CLICK_ACTION_THRESHOLD || differenceY > CLICK_ACTION_THRESHOLD) {
+                        handler.removeCallbacks(mLongPressed);
+                    }
                     break;
             }
             return true;
@@ -166,7 +173,6 @@ public class OnDragTouchListener implements View.OnTouchListener {
                     startX = event.getRawX();
                     startY = event.getRawY();
                     handler.postDelayed(mLongPressed, LONG_CLICK_ACTION_DURATION);
-                    Log.d("Dragging", "startX: " + startX + ", startY: " + startY);
                     if (mOnDragActionListener != null) {
                         mOnDragActionListener.onDragStart(mView);
                     }

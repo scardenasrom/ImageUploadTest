@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.widget.ImageView;
 import android.widget.SeekBar;
 
+import com.test.image_upload.BaseActivity;
 import com.test.image_upload.R;
 import com.test.image_upload.model.AlbumPictureDTO;
 import com.test.image_upload.util.ImageManipulationTouchListener;
@@ -17,7 +18,7 @@ import org.androidannotations.annotations.Extra;
 import org.androidannotations.annotations.ViewById;
 
 @EActivity(R.layout.activity_image_manipulation)
-public class ImageManipulationActivity extends AppCompatActivity {
+public class ImageManipulationActivity extends BaseActivity {
 
     @Extra("picture") AlbumPictureDTO picture;
 

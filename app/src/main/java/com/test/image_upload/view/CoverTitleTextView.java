@@ -32,9 +32,4 @@ public class CoverTitleTextView extends TextView {
         return getY() + getHeight()/2;
     }
 
-    public interface OnTitleViewClickListener {
-        void onTitleClick(CoverTitleTextView coverTitleTextView);
-        void onTitleLongClick();
-    }
-
 }

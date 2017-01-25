@@ -30,6 +30,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
+import com.test.image_upload.BaseActivity;
 import com.test.image_upload.R;
 import com.test.image_upload.adapter.AlbumPicturesAdapter;
 import com.test.image_upload.model.Album;
@@ -50,7 +51,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @EActivity(R.layout.activity_album_creation)
-public class AlbumCreationActivity extends AppCompatActivity {
+public class AlbumCreationActivity extends BaseActivity {
 
     private static final int CAMERA_REQUEST = 0;
     private static final int GALLERY_REQUEST = 1;
@@ -80,8 +81,20 @@ public class AlbumCreationActivity extends AppCompatActivity {
 
     @AfterViews
     public void initialize() {
-        setSupportActionBar(toolbar);
+        setupToolbar("Creación de Álbum");
+        if (getSupportActionBar() != null)
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         setupRecyclerView();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                handleAlbumCreationExit();
+                break;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
@@ -155,6 +168,10 @@ public class AlbumCreationActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
+        handleAlbumCreationExit();
+    }
+
+    private void handleAlbumCreationExit() {
         if (currentNumberOfPics > 0) {
             if (exiting) {
                 super.onBackPressed();
@@ -268,7 +285,7 @@ public class AlbumCreationActivity extends AppCompatActivity {
 
     private void updatePicsCount() {
         if (picsCountTextView != null) {
-            picsCountTextView.setText(currentNumberOfPics + " / " + totalNumberOfPics + " fotografías");
+            picsCountTextView.setText(currentNumberOfPics + " / " + totalNumberOfPics);
         }
         if (currentNumberOfPics == totalNumberOfPics) {
             addPictureButton.setEnabled(false);
