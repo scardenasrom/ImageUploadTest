@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/pics_count_item"
+        android:actionLayout="@layout/view_pics_count"
+        android:title="NumOfPics"
+        app:showAsAction="always"
+        />
+</menu>

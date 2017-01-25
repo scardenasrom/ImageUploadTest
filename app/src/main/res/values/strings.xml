@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">ImageUploadTest</string>
+    <string name="title_activity_album_creation">Creación de Álbum</string>
+</resources>

@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/content_album_creation"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="com.test.image_upload.activity.AlbumCreationActivity"
+    tools:showIn="@layout/activity_album_creation"
+    >
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/album_creation_recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clipToPadding="false"
+        android:layout_above="@+id/album_creation_progress_layout"
+        android:padding="@dimen/spacing_medium"
+        />
+
+    <RelativeLayout
+        android:id="@+id/album_creation_progress_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/primary"
+        android:layout_above="@+id/album_creation_bottom_layout"
+        android:padding="@dimen/spacing_small"
+        android:visibility="gone"
+        >
+
+        <TextView
+            android:id="@+id/album_creation_progress_label"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/spacing_xsmall"
+            android:text="Progreso subida"
+            android:textColor="@color/white"
+            />
+
+        <ProgressBar
+            android:id="@+id/album_creation_progress_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/album_creation_progress_label"
+            android:indeterminate="false"
+            android:layout_toLeftOf="@+id/album_creation_progress_check"
+            style="?android:attr/progressBarStyleHorizontal"
+            />
+
+        <ImageView
+            android:id="@+id/album_creation_progress_check"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/spacing_small"
+            android:src="@drawable/ic_check_circle"
+            android:visibility="gone"
+            />
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/album_creation_bottom_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_alignParentBottom="true"
+        >
+
+        <android.support.v7.widget.AppCompatButton
+            android:id="@+id/album_creation_send_album_button"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/primary_button"
+            android:text="Enviar"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_large"
+            android:stateListAnimator="@null"
+            tools:targetApi="lollipop"
+            />
+
+        <android.support.v7.widget.AppCompatButton
+            android:id="@+id/album_creation_cover_button"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/primary_button"
+            android:text="Portada"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_large"
+            android:stateListAnimator="@null"
+            tools:targetApi="lollipop"
+            />
+
+        <android.support.v7.widget.AppCompatButton
+            android:id="@+id/album_creation_add_picture_button"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/primary_button"
+            android:text="Añadir"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_large"
+            android:stateListAnimator="@null"
+            tools:targetApi="lollipop"
+            />
+
+    </LinearLayout>
+
+</RelativeLayout>
