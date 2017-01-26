@@ -13,6 +13,7 @@ buildscript {
 repositories {
     mavenCentral()
     mavenLocal()
+    maven { url 'http://github.com/wada811/Android-Material-Design-Colors/raw/master/repository/' }
 }
 
 apply plugin: 'com.android.application'
@@ -39,15 +40,9 @@ dependencies {
     compile 'com.theartofdev.edmodo:android-image-cropper:2.3.+'
     compile 'com.larswerkman:HoloColorPicker:1.5'
     compile 'uk.co.chrisjenx:calligraphy:2.2.0'
+    compile 'com.thebluealliance:spectrum:0.7.1'
+    compile 'com.wada811:android-material-design-colors:3.0.0'
 
-//    compile 'com.github.bumptech.glide:glide:3.7.0'
-//    compile 'com.squareup.picasso:picasso:2.5.2'
-
-//    compile 'org.whispersystems:jobmanager:1.2.0'
-//    compile 'com.birbit:android-priority-jobqueue:2.0.1'
-//    compile 'org.greenrobot:eventbus:3.0.0'
-//    compile 'net.gotev:uploadservice:3.1'
-//    compile 'net.gotev:uploadservice-okhttp:3.1'
 }
 
 apt {

@@ -21,14 +21,14 @@
             android:gravity="center_horizontal"
             android:layout_marginBottom="@dimen/spacing_small"
             android:padding="@dimen/spacing_small"
-            android:text="Título del Álbum"
+            android:text="Color de Portada"
             android:textColor="@color/white"
             android:textSize="@dimen/text_large"
             fontPath="fonts/CronosProBold.otf"
             />
 
         <LinearLayout
-            android:id="@+id/cover_title_dialog_main_layout"
+            android:id="@+id/dialog_cover_background_main_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
@@ -36,77 +36,16 @@
             >
 
             <TextView
+                android:id="@+id/dialog_cover_background_color_label"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/spacing_small"
-                android:padding="@dimen/spacing_small"
-                android:text="Introduzca el título del álbum. Si ya ha añadido un título se sustituirá."
-                android:textSize="@dimen/text_normal"
+                android:gravity="center"
+                android:layout_margin="@dimen/spacing_small"
+                android:padding="@dimen/spacing_large"
+                android:text="Pulsa para escoger el color del fondo"
+                android:textSize="@dimen/text_large"
                 fontPath="fonts/CronosProRegular.otf"
                 />
-
-            <android.support.design.widget.TextInputLayout
-                android:id="@+id/cover_title_dialog_input_layout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/spacing_small"
-                android:layout_marginLeft="@dimen/spacing_small"
-                android:layout_marginRight="@dimen/spacing_small"
-                android:hint="Título"
-                fontPath="fonts/CronosProRegular.otf"
-                >
-
-                <android.support.design.widget.TextInputEditText
-                    android:id="@+id/cover_title_dialog_edit_text"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textSize="@dimen/text_large"
-                    fontPath="fonts/CronosProRegular.otf"
-                    />
-
-
-            </android.support.design.widget.TextInputLayout>
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/spacing_small"
-                android:layout_marginRight="@dimen/spacing_small"
-                >
-
-                <RelativeLayout
-                    android:id="@+id/cover_title_dialog_text_color_button"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/white_button"
-                    android:clickable="true"
-                    android:padding="@dimen/spacing_xsmall"
-                    >
-
-                    <TextView
-                        android:id="@+id/cover_title_dialog_text_color_label"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:padding="@dimen/spacing_xsmall"
-                        android:text="Color del texto: "
-                        android:textColor="@color/black"
-                        android:textSize="@dimen/text_large"
-                        fontPath="fonts/CronosProRegular.otf"
-                        />
-
-                    <View
-                        android:id="@+id/cover_title_dialog_text_color_box"
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"
-                        android:background="@color/black"
-                        android:layout_centerVertical="true"
-                        android:layout_margin="@dimen/spacing_xsmall"
-                        android:layout_toRightOf="@+id/cover_title_dialog_text_color_label"
-                        />
-
-                </RelativeLayout>
-
-            </RelativeLayout>
 
             <LinearLayout
                 android:id="@+id/cover_title_dialog_button_layout"
@@ -117,7 +56,7 @@
                 >
 
                 <android.support.v7.widget.AppCompatButton
-                    android:id="@+id/cover_title_dialog_negative_button"
+                    android:id="@+id/dialog_cover_background_negative_button"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@drawable/white_button"
@@ -132,7 +71,7 @@
                     />
 
                 <android.support.v7.widget.AppCompatButton
-                    android:id="@+id/cover_title_dialog_positive_button"
+                    android:id="@+id/dialog_cover_background_positive_button"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@drawable/white_button"
@@ -151,7 +90,7 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/cover_title_dialog_color_layout"
+            android:id="@+id/dialog_cover_background_color_picker_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
@@ -159,7 +98,7 @@
             >
 
             <com.larswerkman.holocolorpicker.ColorPicker
-                android:id="@+id/cover_title_dialog_color_picker"
+                android:id="@+id/dialog_cover_background_color_picker"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/spacing_small"
@@ -177,7 +116,7 @@
                 />
 
             <com.larswerkman.holocolorpicker.SaturationBar
-                android:id="@+id/cover_title_dialog_color_saturation_bar"
+                android:id="@+id/dialog_cover_background_saturation_bar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/spacing_small"
@@ -195,7 +134,7 @@
                 />
 
             <com.larswerkman.holocolorpicker.ValueBar
-                android:id="@+id/cover_title_dialog_color_value_bar"
+                android:id="@+id/dialog_cover_background_value_bar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/spacing_small"
@@ -211,7 +150,7 @@
                 >
 
                 <android.support.v7.widget.AppCompatButton
-                    android:id="@+id/cover_title_dialog_color_negative_button"
+                    android:id="@+id/dialog_cover_background_color_negative_button"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@drawable/white_button"
@@ -226,7 +165,7 @@
                     />
 
                 <android.support.v7.widget.AppCompatButton
-                    android:id="@+id/cover_title_dialog_color_positive_button"
+                    android:id="@+id/dialog_cover_background_color_positive_button"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@drawable/white_button"
@@ -245,16 +184,15 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/cover_title_dialog_palette_layout"
+            android:id="@+id/dialog_cover_background_palette_layout"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical"
             android:visibility="gone"
-            tools:visibility="visible"
             >
 
             <com.thebluealliance.spectrum.SpectrumPalette
-                android:id="@+id/cover_title_dialog_color_palette"
+                android:id="@+id/dialog_cover_background_palette"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_gravity="center_horizontal"
@@ -273,7 +211,7 @@
                 >
 
                 <android.support.v7.widget.AppCompatButton
-                    android:id="@+id/cover_title_dialog_palette_negative_button"
+                    android:id="@+id/dialog_cover_background_palette_negative_button"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@drawable/white_button"
@@ -288,7 +226,7 @@
                     />
 
                 <android.support.v7.widget.AppCompatButton
-                    android:id="@+id/cover_title_dialog_palette_positive_button"
+                    android:id="@+id/dialog_cover_background_palette_positive_button"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@drawable/white_button"

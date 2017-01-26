@@ -1,7 +1,9 @@
 package com.test.image_upload.activity;
 
 import android.app.Dialog;
+import android.graphics.Color;
 import android.support.design.widget.Snackbar;
+import android.support.v7.widget.AppCompatButton;
 import android.util.TypedValue;
 import android.view.MenuItem;
 import android.view.View;
@@ -9,6 +11,7 @@ import android.widget.RelativeLayout;
 
 import com.test.image_upload.BaseActivity;
 import com.test.image_upload.R;
+import com.test.image_upload.dialog.CoverBackgroundDialog;
 import com.test.image_upload.dialog.CoverTitleDialog;
 import com.test.image_upload.model.CoverTitle;
 import com.test.image_upload.util.OnDragTouchListener;
@@ -17,6 +20,7 @@ import com.test.image_upload.view.CoverTitleTextView;
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EActivity;
+import org.androidannotations.annotations.LongClick;
 import org.androidannotations.annotations.ViewById;
 
 import uk.co.chrisjenx.calligraphy.CalligraphyUtils;
@@ -27,8 +31,10 @@ public class CoverEditorActivity extends BaseActivity {
     private static final String TITLE_TAG = "title";
 
     private CoverTitle currentCoverTitle = new CoverTitle();
+    private int backgroundColor = Color.WHITE;
 
     @ViewById(R.id.cover_editor_canvas) RelativeLayout coverCanvas;
+    @ViewById(R.id.cover_editor_title_button) AppCompatButton titleButton;
 
     @AfterViews
     public void initialize() {
@@ -51,6 +57,7 @@ public class CoverEditorActivity extends BaseActivity {
         finish();
     }
 
+    //region Title
     @Click(R.id.cover_editor_title_button)
     public void onTitleButtonClick() {
         showCoverTitleDialog();
@@ -113,6 +120,7 @@ public class CoverEditorActivity extends BaseActivity {
         currentCoverTitle.setyCanvasCoordinate(coverTitleTextView.getY());
 
         coverCanvas.removeView(coverTitleTextView);
+        titleButton.setEnabled(false);
 
         Snackbar confirmTitleRemovalSnackbar = Snackbar.make(coverCanvas, "Título eliminado", Snackbar.LENGTH_LONG);
         confirmTitleRemovalSnackbar.setAction("Deshacer", new View.OnClickListener() {
@@ -124,8 +132,10 @@ public class CoverEditorActivity extends BaseActivity {
         confirmTitleRemovalSnackbar.addCallback(new Snackbar.Callback() {
             @Override
             public void onDismissed(Snackbar transientBottomBar, int event) {
-                if (Snackbar.Callback.DISMISS_EVENT_ACTION != event)
+                titleButton.setEnabled(true);
+                if (Snackbar.Callback.DISMISS_EVENT_ACTION != event) {
                     currentCoverTitle = new CoverTitle();
+                }
             }
         });
         confirmTitleRemovalSnackbar.setActionTextColor(getResources().getColor(R.color.white));
@@ -161,5 +171,35 @@ public class CoverEditorActivity extends BaseActivity {
         }
         coverCanvas.addView(coverTitleTextView);
     }
+    //endregion
+
+    //region Cover color
+    @Click(R.id.cover_editor_color_button)
+    public void onBackgroundColorButtonClick() {
+        showCoverColorDialog();
+    }
+
+    @LongClick(R.id.cover_editor_canvas)
+    public void onCanvasLongClick() {
+        showCoverColorDialog();
+    }
+
+    private void showCoverColorDialog() {
+        CoverBackgroundDialog coverBackgroundDialog = new CoverBackgroundDialog(CoverEditorActivity.this, R.style.DialogTheme, backgroundColor, new CoverBackgroundDialog.OnBackgroundColorClickListener() {
+            @Override
+            public void onCancel(Dialog dialog) {
+                dialog.cancel();
+            }
+
+            @Override
+            public void onAccept(Dialog dialog, int color) {
+                dialog.dismiss();
+                backgroundColor = color;
+                coverCanvas.setBackgroundColor(color);
+            }
+        });
+        coverBackgroundDialog.show();
+    }
+    //endregion
 
 }

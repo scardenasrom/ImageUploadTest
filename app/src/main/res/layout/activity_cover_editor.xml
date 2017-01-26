@@ -26,7 +26,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/primary_button"
-                android:layout_above="@+id/cover_editor_canvas"
+                android:layout_above="@+id/cover_editor_canvas_wrapper"
                 android:layout_marginLeft="@dimen/spacing_xxlarge"
                 android:layout_marginRight="@dimen/spacing_xxlarge"
                 android:text="Imagen de Portada"
@@ -39,6 +39,30 @@
                 />
 
             <RelativeLayout
+                android:id="@+id/cover_editor_canvas_wrapper"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/primary"
+                android:layout_centerInParent="true"
+                android:layout_marginLeft="@dimen/spacing_xxlarge"
+                android:layout_marginRight="@dimen/spacing_xxlarge"
+                android:padding="1dp"
+                >
+
+                <RelativeLayout
+                    android:id="@+id/cover_editor_canvas"
+                    android:layout_width="match_parent"
+                    android:layout_height="350dp"
+                    android:background="@color/white"
+                    >
+
+
+
+                </RelativeLayout>
+
+            </RelativeLayout>
+
+            <!--<RelativeLayout
                 android:id="@+id/cover_editor_canvas"
                 android:layout_width="match_parent"
                 android:layout_height="350dp"
@@ -50,13 +74,13 @@
 
 
 
-            </RelativeLayout>
+            </RelativeLayout>-->
 
             <LinearLayout
                 android:id="@+id/cover_editor_bottom_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/cover_editor_canvas"
+                android:layout_below="@+id/cover_editor_canvas_wrapper"
                 android:layout_marginLeft="@dimen/spacing_xxlarge"
                 android:layout_marginRight="@dimen/spacing_xxlarge"
                 android:orientation="horizontal"
