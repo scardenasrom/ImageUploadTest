@@ -1,31 +1,26 @@
 package com.test.image_upload.activity;
 
-import android.animation.ObjectAnimator;
 import android.app.AlertDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.database.Cursor;
 import android.net.Uri;
 import android.provider.MediaStore;
 import android.support.design.widget.Snackbar;
 import android.support.v4.view.MenuItemCompat;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.animation.DecelerateInterpolator;
-import android.widget.ImageView;
-import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -37,8 +32,8 @@ import com.test.image_upload.model.Album;
 import com.test.image_upload.model.AlbumPictureDTO;
 import com.test.image_upload.service.AlbumSenderService;
 import com.test.image_upload.util.ImageUtils;
+import com.test.image_upload.view.ProgressView;
 import com.theartofdev.edmodo.cropper.CropImage;
-import com.theartofdev.edmodo.cropper.CropImageView;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Click;
@@ -60,9 +55,7 @@ public class AlbumCreationActivity extends BaseActivity {
 
     @ViewById(R.id.toolbar) Toolbar toolbar;
     @ViewById(R.id.album_creation_recycler_view) RecyclerView picturesRecyclerView;
-    @ViewById(R.id.album_creation_progress_layout) RelativeLayout progressLayout;
-    @ViewById(R.id.album_creation_progress_bar) ProgressBar progressBar;
-    @ViewById(R.id.album_creation_progress_check) ImageView progressCheck;
+    @ViewById(R.id.album_creation_progress_view) ProgressView progressView;
     @ViewById(R.id.album_creation_add_picture_button) AppCompatButton addPictureButton;
 
     @Extra("totalNumberOfPics") int totalNumberOfPics = 0;
@@ -148,6 +141,9 @@ public class AlbumCreationActivity extends BaseActivity {
                 } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
                     Exception error = result.getError();
                 }
+                break;
+            case GALLERY_REQUEST:
+                //TODO
                 break;
         }
     }
@@ -261,7 +257,11 @@ public class AlbumCreationActivity extends BaseActivity {
         builder.setNegativeButton("Galería", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                //TODO Extract pictures from gallery
+                Intent intent = new Intent();
+                intent.setType("image/*");
+                intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
+                intent.setAction(Intent.ACTION_GET_CONTENT);
+                startActivityForResult(Intent.createChooser(intent, "Selecciona fotografías"), GALLERY_REQUEST);
             }
         });
         builder.setPositiveButton("Cámara", new DialogInterface.OnClickListener() {
@@ -300,7 +300,7 @@ public class AlbumCreationActivity extends BaseActivity {
         Intent sendAlbumIntent = new Intent(AlbumCreationActivity.this, AlbumSenderService.class);
         sendAlbumIntent.putExtra(AlbumSenderService.ALBUM_EXTRA, albumString);
         startService(sendAlbumIntent);
-        progressLayout.setVisibility(View.VISIBLE);
+        progressView.setVisibility(View.VISIBLE);
     }
 
     public class AlbumSenderProgressReceiver extends BroadcastReceiver {
@@ -309,17 +309,9 @@ public class AlbumCreationActivity extends BaseActivity {
         public void onReceive(Context context, Intent intent) {
             if (intent.getAction().equalsIgnoreCase(AlbumSenderService.ACTION_PROGRESS)) {
                 int progress = intent.getIntExtra(AlbumSenderService.PROGRESS_EXTRA, 0);
-                progressLayout.setVisibility(View.VISIBLE);
-                ObjectAnimator animator = ObjectAnimator.ofInt(progressBar, "progress", progress);
-                animator.setDuration(200);
-                animator.setInterpolator(new DecelerateInterpolator());
-                animator.start();
+                progressView.setProgress(progress);
             } else if (intent.getAction().equalsIgnoreCase(AlbumSenderService.ACTION_END)) {
-                ObjectAnimator animator = ObjectAnimator.ofInt(progressBar, "progress", 100);
-                animator.setDuration(200);
-                animator.setInterpolator(new DecelerateInterpolator());
-                animator.start();
-                progressCheck.setVisibility(View.VISIBLE);
+                progressView.setProgress(100);
                 exiting = true;
             }
         }

@@ -2,7 +2,6 @@
 <android.support.design.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/activity_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
@@ -32,6 +31,41 @@
                 >
 
                 <android.support.v7.widget.AppCompatButton
+                    android:id="@+id/main_one_picture_button"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/primary_button"
+                    android:layout_marginBottom="@dimen/spacing_small"
+                    android:layout_marginLeft="@dimen/spacing_xlarge"
+                    android:layout_marginRight="@dimen/spacing_xlarge"
+                    android:stateListAnimator="@null"
+                    android:text="Página con 1 foto"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/text_xlarge"
+                    tools:targetApi="lollipop"
+                    fontPath="fonts/CronosProRegular.otf"
+                    />
+
+                <android.support.v7.widget.AppCompatButton
+                    android:id="@+id/main_two_pictures_button"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/primary_button"
+                    android:layout_marginBottom="@dimen/spacing_small"
+                    android:layout_marginLeft="@dimen/spacing_xlarge"
+                    android:layout_marginRight="@dimen/spacing_xlarge"
+                    android:layout_marginTop="@dimen/spacing_small"
+                    android:stateListAnimator="@null"
+                    android:text="Página con 2 fotos"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/text_xlarge"
+                    tools:targetApi="lollipop"
+                    fontPath="fonts/CronosProRegular.otf"
+                    />
+
+                <android.support.v7.widget.AppCompatButton
                     android:id="@+id/main_small_album_button"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -39,6 +73,7 @@
                     android:layout_marginBottom="@dimen/spacing_small"
                     android:layout_marginLeft="@dimen/spacing_xlarge"
                     android:layout_marginRight="@dimen/spacing_xlarge"
+                    android:layout_marginTop="@dimen/spacing_small"
                     android:stateListAnimator="@null"
                     android:text="Álbum pequeño: 4 fotos"
                     android:textAllCaps="false"

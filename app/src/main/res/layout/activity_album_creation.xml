@@ -9,6 +9,99 @@
     tools:context="com.test.image_upload.activity.AlbumCreationActivity"
     >
 
-    <include layout="@layout/content_album_creation" />
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        tools:context="com.test.image_upload.activity.AlbumCreationActivity"
+        tools:showIn="@layout/activity_album_creation"
+        >
+
+        <include layout="@layout/toolbar" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            >
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/album_creation_recycler_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:clipToPadding="false"
+                android:layout_above="@+id/album_creation_progress_view"
+                android:padding="@dimen/spacing_medium"
+                />
+
+            <com.test.image_upload.view.ProgressView
+                android:id="@+id/album_creation_progress_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_above="@+id/album_creation_bottom_layout"
+                android:visibility="gone"
+                />
+
+            <LinearLayout
+                android:id="@+id/album_creation_bottom_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_alignParentBottom="true"
+                >
+
+                <android.support.v7.widget.AppCompatButton
+                    android:id="@+id/album_creation_send_album_button"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/primary_button"
+                    android:text="Enviar"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/text_large"
+                    android:stateListAnimator="@null"
+                    tools:targetApi="lollipop"
+                    fontPath="fonts/CronosProRegular.otf"
+                    />
+
+                <android.support.v7.widget.AppCompatButton
+                    android:id="@+id/album_creation_cover_button"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/primary_button"
+                    android:text="Portada"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/text_large"
+                    android:stateListAnimator="@null"
+                    tools:targetApi="lollipop"
+                    fontPath="fonts/CronosProRegular.otf"
+                    />
+
+                <android.support.v7.widget.AppCompatButton
+                    android:id="@+id/album_creation_add_picture_button"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/primary_button"
+                    android:text="Añadir"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/text_large"
+                    android:stateListAnimator="@null"
+                    tools:targetApi="lollipop"
+                    fontPath="fonts/CronosProRegular.otf"
+                    />
+
+            </LinearLayout>
+
+        </RelativeLayout>
+
+    </LinearLayout>
 
 </android.support.design.widget.CoordinatorLayout>

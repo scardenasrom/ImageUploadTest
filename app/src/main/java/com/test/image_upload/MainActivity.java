@@ -7,6 +7,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.Toolbar;
 
 import com.test.image_upload.activity.AlbumCreationActivity_;
+import com.test.image_upload.activity.PageCreationActivity_;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Click;
@@ -26,6 +27,16 @@ public class MainActivity extends BaseActivity {
     public void initialize() {
         setupToolbar("Prueba Creación de Álbum");
         checkForPermissions();
+    }
+
+    @Click(R.id.main_one_picture_button)
+    public void onOnePicturePageButtonClick() {
+        PageCreationActivity_.intent(MainActivity.this).numOfPics(1).start();
+    }
+
+    @Click(R.id.main_two_pictures_button)
+    public void onTwoPicturesPageButtonClick() {
+        PageCreationActivity_.intent(MainActivity.this).numOfPics(2).start();
     }
 
     @Click(R.id.main_small_album_button)
